@@ -1,0 +1,24 @@
+
+#board {
+    display: inline-block;
+    max-width: 400px;
+}
+
+#board .cell {
+    display: inline-block;
+    border: solid #343434 1px;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    font-size: 36px;
+    font-family: Arial, Helvetica;
+}
+
+#board .cell .content {
+    position: relative;
+    top: 21px;
+}
+
+.hidden {
+    display: none;
+}
