@@ -25,6 +25,7 @@ var Boggle = React.createClass({
 var BoggleBoard = React.createClass({
     letterMatrix: [[]],
     wordList: [],
+    wordSet: {},
     foundWords: [],
     componentWillMount: function() {
         this.loadWordList();
@@ -55,8 +56,13 @@ var BoggleBoard = React.createClass({
         $.get("/data/wordsEn.txt", function (data) {
             self.wordList = data.split(/\r\n/);
             self.wordList = _.filter(self.wordList, function (word) {
-                return word.length > 2 && word.length < 18;
+                return word.length > 2 && word.length < Math.pow(self.props.boardWidth, 2);
             });
+
+            for (var i = 0; i < self.wordList.length; i++) {
+                self.wordSet[self.wordList[i]] = true;
+            }
+
         });
     },
     shuffleLetters: function () {
@@ -102,7 +108,8 @@ var BoggleBoard = React.createClass({
         wordSoFar += letterMatrix[i][j];
         markedCells[i][j] = true;
 
-        if (wordSoFar.length > 2 && _.contains(self.wordList, wordSoFar.trim().toLowerCase())) {
+        if (wordSoFar.length > 2 && Object.prototype.hasOwnProperty.call(self.wordSet, wordSoFar.trim().toLowerCase())) {
+        //if (wordSoFar.length > 2 && _.contains(self.wordList, wordSoFar.trim().toLowerCase())) {
             foundWords.push(wordSoFar);
         }
 
