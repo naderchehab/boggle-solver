@@ -17,4 +17,5 @@ app.use(errorHandler({
     showStack: true
 }));
 
+console.log("Listening on port " + port + "...");
 app.listen(port);
